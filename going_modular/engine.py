@@ -3,7 +3,8 @@ training and test steps
 '''
 from typing import Dict, List, Tuple
 import torch
-from torch.auto import tqdm
+from tqdm.auto import tqdm
+
 
 def train_step (model: torch.nn.Module,
                 dataloader: torch.utils.data.DataLoader,
@@ -62,7 +63,7 @@ def train_model(model: torch.nn.Module,
                 train_dataloader: torch.utils.data.DataLoader,
                 test_dataloader:torch.utils.data.DataLoader,
                 optimizer: torch.optim.Optimizer,
-                loss_fn: torch.nn.Module = nn.CrossEntropyLoss(),
+                loss_fn: torch.nn.Module = torch.nn.CrossEntropyLoss(),
                 epochs: int = 1):
 
     """_summary_

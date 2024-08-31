@@ -24,11 +24,11 @@ def create_dataloaders(
     train_data = datasets.ImageFolder(train_dir, transform = transform)
     test_data = datasets.ImageFolder(test_dir, transform=transform)
 
-    class_names = train_data.classses
+    class_names = train_data.classes
 
     train_dataloader = DataLoader(
         train_data,
-        batch_size=bath_size,
+        batch_size=batch_size,
         shuffle = True,
         num_workers = num_workers,
         pin_memory = pin_memory
