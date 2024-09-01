@@ -9,7 +9,8 @@ from tqdm.auto import tqdm
 def train_step (model: torch.nn.Module,
                 dataloader: torch.utils.data.DataLoader,
                 loss_fn: torch.nn.Module,
-                optimizer: torch.optim.Optimizer):
+                optimizer: torch.optim.Optimizer,
+                device:torch.device):
 
     """_summary_
 
@@ -36,7 +37,8 @@ def train_step (model: torch.nn.Module,
 
 def test_step(model: torch.nn.Module,
               dataloader: torch.utils.data.DataLoader,
-              loss_fn: torch.nn.Module):
+              loss_fn: torch.nn.Module,
+              device: torch.device):
 
     """_summary_
 
@@ -63,8 +65,10 @@ def train_model(model: torch.nn.Module,
                 train_dataloader: torch.utils.data.DataLoader,
                 test_dataloader:torch.utils.data.DataLoader,
                 optimizer: torch.optim.Optimizer,
+                device: torch.device,
                 loss_fn: torch.nn.Module = torch.nn.CrossEntropyLoss(),
-                epochs: int = 1):
+                epochs: int=1
+                ):
 
     """_summary_
 
@@ -81,10 +85,12 @@ def train_model(model: torch.nn.Module,
         train_loss, train_acc = train_step(model=model,
                                            dataloader = train_dataloader,
                                            loss_fn = loss_fn,
-                                           optimizer=optimizer)
+                                           optimizer=optimizer,
+                                           device = device)
         test_loss, test_acc = test_step (model=model,
                                         dataloader=test_dataloader,
-                                        loss_fn = loss_fn)
+                                        loss_fn = loss_fn,
+                                        device = device)
         
         if epoch % 10 == 0:
             print (
