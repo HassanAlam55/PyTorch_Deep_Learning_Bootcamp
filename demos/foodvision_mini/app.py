@@ -1,15 +1,21 @@
-1. import and setup
+# 1. import and setup
 import gradio as gr
-imort os
+import os
 import torch
+
+from model import create_effnetb2_model
+from timeit import default_repeat as timer  
+from typing import Tuple, Dict
+
 
 # 2. Models and Transforms
 effnetb2, effnetb2_transforms = create_effnetb2_model(output_feature_count=3)
 
 effnetb2.load_state_dict(
     torch.load(
-        f=f"models/09_pre_trained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent_{10}_epochs.pth",
-        map_location=torch.device('cop')
+        # f=f"models/09_pre_trained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent_{10}_epochs.pth",
+        f=f"09_pre_trained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent_{10}_epochs.pth",        
+        map_location=torch.device('cpu')
     )
 )
 
@@ -38,7 +44,8 @@ description = "an EfficentNetB2 feature extract"
 article = "Created at Hassan 09"
 
 # these will likely cause problems in relative paths. Need to fix. 
-example_list = [[str(filepath)] for filepath in random.sample (test_data_paths, k = 3)]
+# example_list = [[str(filepath)] for filepath in random.sample (test_data_paths, k = 3)]
+example_list = [['examples/' + example] for example in os.listdir('examples')]
 
 demo = gr.Interface(fn=predict,
                     inputs = gr.Image(type='pil'),
